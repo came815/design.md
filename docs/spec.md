@@ -14,10 +14,9 @@ describe design tokens is loosely based on the
 As such, it's easily converted from / to tokens.json, Figma variables, and
 Tailwind theme configs.
 
-The yaml may be embedded into DESIGN.md as Front Matter, or be distributed
-throughout the document as YAML code blocks.
+The yaml may be embedded into DESIGN.md as Front Matter.
 
-Front Matter Example:
+Example:
 
 ```yaml
 ---
@@ -35,38 +34,7 @@ typography:
 ---
 ```
 
-YAML codeblock example:[^2]
-
-```markdown
-## Colors
-
-‍```yaml
-colors:
-  primary: "#647D66"
-‍```
-
-The palette uses a deep "Evergreen" primary to establish authority and
-health-sector credibility. Use for moments of highest authority and deep
-contrast.
-
-## Typography
-
-‍```yaml
-typography:
-  headline-lg:
-    fontFamily: Google Sans Display
-    fontSize: 42px
-    fontWeight: 500
-    lineHeight: 50px
-    letterSpacing: 1.2px
-‍```
-
-This design system utilizes a dual-font strategy to balance character with
-functionality. **Google Sans Display** provides a friendly, slightly rounded
-geometric feel for headlines.
-```
-
-### Schema
+## Schema
 
 Here's the overall schema for the design tokens:
 
@@ -111,7 +79,9 @@ contain an object path to another value in the YAML tree. The referenced object
 must be a primitive value, e.g. colors.primary-60, rather than an object, e.g.
 colors.
 
-# File Format
+# Sections
+
+Every `DESIGN.md` follows the same structure. Sections can be omitted if they’re not relevant to your project, but the order should be preserved.
 
 ## Overview
 
@@ -317,7 +287,7 @@ variants and make the appropriate styling decisions.
 
 ### Component Property Tokens
 
-A component may have these sub tokens:
+Each component has a set of properties that are themselves design tokens:
 
 - backgroundColor: \<Color\>
 - textColor: \<Color\>
@@ -327,73 +297,13 @@ A component may have these sub tokens:
 
 ## Do's and Don'ts
 
-# Use Cases
+Practical guidelines and common pitfalls. These act as guardrails when creating designs.
 
-## Usage within Stitch
+```markdown
+## Do's and Don'ts
 
-DESIGN.md allows the user to gain insight into how Stitch understands their
-design request and enables Stitch agent and the user to collaborate on the
-design system.
-
-- **Enforcing Style:** The agent consumes the DESIGN.md to enforce systemic
-  rules, generating UI code that strictly adheres to the included design tokens
-  and guidelines.
-- **Enhancing Consistency:** The file is used to enhance the prompt for
-  generating and editing existing screens to ensure consistency across the
-  project.
-- **Decoupling Content and Style:** Stitch is designed to strictly decouple
-  content from styling. The DESIGN.md provides the styling rulebook, which the
-  agent combines with the context of previous screens to determine the actual
-  content, preventing the model from inserting irrelevant content (like a map in
-  a non-dog-walking app) based only on the design system contents.
-
-## Usage outside of Stitch
-
-We also envision usage of the DESIGN.md file in the broader design industry:
-
-- **Viewing the System:** Users can view the generated design.md file. They can
-  also view the design system of a selected screen in the UI panel (renamed from
-  "theme" to "Design System" panel).
-- **Setting Defaults:** Users can select an available design system to be used by
-  default for all future generations within the same project.
-- **Refinement:** The generated DESIGN.md can be used to enhance prompts,
-  allowing users to guide the agent toward greater consistency and adherence to
-  the defined look and feel.
-- **Editing:** Users can make simple edits to the design system via the Design
-  System panel in the UI.
-- **Export:** When a user exports a project, the design.md file is intended to be
-  included in the exported zip file.
-
-# Creation
-
-### Agent Generation
-
-1. The agent interprets high-level aesthetic prompts from the user (e.g.,
-   "playful and accessible").
-2. The agent generates a valid design token specification and style guidelines
-   from scratch, which is then summarized in the markdown format.
-3. Agent creates a DESIGN.md file based on the design tokens and a DESIGN.md
-   template.
-
-### Direct Input
-
-Advanced users may manually define or directly edit the design system. This
-includes defining custom design personas and encoding detailed design
-preferences to precisely guide the Stitch agent's UI generation.
-
-### Derived from Branding Materials
-
-The design system can be generated from external assets. The agent extracts
-style and token information from sources such as user-provided images or a
-specified URL containing branding profiles and design elements to create the
-initial DESIGN.md file.
-
-A DESIGN.md file has two faces:
-
-- The prose describes the design system.
-- The structured design tokens.
-
----
-
-[^1]: May add tokens for border or box shadow later.
-[^2]: Provincial format, exploring results.
+- Do use the primary color only for the single most important action per screen
+- Don't mix rounded and sharp corners in the same view
+- Do maintain WCAG AA contrast ratios (4.5:1 for normal text)
+- Don't use more than two font weights on a single screen
+```
