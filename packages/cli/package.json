@@ -7,7 +7,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/google-labs-code/design.md.git"
+    "url": "git+https://github.com/google-labs-code/design.md.git",
+    "directory": "packages/cli"
   },
   "bugs": {
     "url": "https://github.com/google-labs-code/design.md/issues"
@@ -15,9 +16,14 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
-  "private": true,
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "bin": {
     "design.md": "./dist/index.js"
@@ -33,7 +39,7 @@
     }
   },
   "scripts": {
-    "build": "bun build src/index.ts src/linter/index.ts --outdir dist --target node && npx tsc --project tsconfig.build.json --emitDeclarationOnly --skipLibCheck && cp src/linter/spec-config.yaml dist/linter/ && cp src/linter/spec-config.yaml dist/ && cp ../../docs/spec.md dist/linter/",
+    "build": "bun build src/index.ts src/linter/index.ts --outdir dist --target node && npx tsc --project tsconfig.build.json --emitDeclarationOnly --skipLibCheck && cp src/linter/spec-config.yaml dist/linter/ && cp src/linter/spec-config.yaml dist/ && cp ../../docs/spec.md dist/linter/ && cp ../../README.md . && cp ../../LICENSE .",
     "dev": "bun run src/index.ts",
     "test": "bun test",
     "check-package": "bun run scripts/check-package.ts"
